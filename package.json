@@ -15,6 +15,7 @@
     "jquery": "^2.1.4",
     "node-libs-browser": "^0.5.2",
     "pg": "^4.3.0",
+    "promised-exec": "^1.0.1",
     "react": "^0.13.3",
     "react-hot-loader": "^1.2.7",
     "webpack": "^1.9.8"
