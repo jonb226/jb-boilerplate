@@ -1,5 +1,15 @@
 {
    "parser": "babel-eslint",
+   "env": {
+       "node": true,
+       "browser": true
+   },
+   "ecmaFeatures": {
+      "jsx": true
+   },
+   "plugins": [
+       "react"
+   ],
    "rules": {
       "quotes": "single"
     }
