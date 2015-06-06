@@ -15,11 +15,3 @@ gulp.task('watch', function(){
 });
 
 gulp.task('default', ['recompile']);
-
-gulp.task('ungit', function(){
-	exec('mv * ..').then(function(){
-		return exec('mv .[!.]* ..');
-	}).then(function(){
-		exec('cd ..; rm -r jb-base-project; rm -r -f .git; npm install;');
-	})
-});
