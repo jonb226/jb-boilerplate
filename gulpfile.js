@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var babel = require('gulp-babel');
 var WebpackDevServer = require("webpack-dev-server");
 var webpack = require("webpack");
-var config = require('./webpack.config.js');
 
 gulp.task('recompile', function() {
 	return gulp.src('server-js/*.js*')
@@ -27,6 +26,30 @@ gulp.task('default', ['recompile', 'watch', 'webpack']);
 
 gulp.task('webpack', function() {
 
+	var config = {
+		entry: [
+			'webpack/hot/only-dev-server',
+			__dirname + '/client-js/index.js' // Your appʼs entry point
+		],
+		output: {
+			path: __dirname + '/client-dist/',
+			publicPath: "/",
+			filename: 'bundle.js',
+		},
+		module: {
+			loaders: [{
+				test: /\.jsx?$/,
+				exclude: /node_modules\//,
+				loaders: ['react-hot', 'babel-loader?stage=1&optional=runtime']
+			}]
+		},
+		devtool: 'source-map',
+		plugins: [
+			new webpack.HotModuleReplacementPlugin(),
+			new webpack.NoErrorsPlugin()
+		]
+	};
+
 	var server = new WebpackDevServer(webpack(config), {
 		// webpack-dev-server options
 		// or: contentBase: "http://localhost/",
@@ -39,7 +62,7 @@ gulp.task('webpack', function() {
 
 		watchOptions: {
 			aggregateTimeout: 300,
-			poll: 1000
+			poll: 100
 		},
 		stats: {
 			colors: true
